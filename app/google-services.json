@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "756618630376",
+    "firebase_url": "https://santridear-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "santridear",
+    "storage_bucket": "santridear.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756618630376:android:bdb934d91c4e27bfbce55d",
+        "android_client_info": {
+          "package_name": "com.aziza.santridear"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756618630376-kbvsb5ep11enjapl39hhrn3tcitbtf3m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqhn_J3n7kXIDdTqzI6YbLADx2RAtDUxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756618630376-kbvsb5ep11enjapl39hhrn3tcitbtf3m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

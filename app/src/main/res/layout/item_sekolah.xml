@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="6dp"
+    android:layout_marginBottom="3dp"
+    app:cardElevation="5dp"
+    android:layout_margin="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/line1"
+        android:background="#ffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:src="@drawable/santri"
+        android:layout_width="30dp"
+        android:layout_height="40dp"/>
+
+
+        <TextView
+            android:layout_marginLeft="9dp"
+            android:textColor="#000"
+            android:layout_marginTop="9dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text="Husnul Khotimah"
+            android:id="@+id/nama_absenSekolah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

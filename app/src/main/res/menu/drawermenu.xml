@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/profil"
+        android:title="Profil"
+        android:icon="@drawable/person">
+
+    </item>
+
+ <item
+        android:id="@+id/data_santri"
+        android:title="Data Santri"
+        android:icon="@drawable/data">
+
+    </item>
+ <item
+        android:id="@+id/absen_sekolah"
+        android:title="Absen Sekolah"
+        android:icon="@drawable/data">
+
+    </item>
+ <item
+        android:id="@+id/register_santri"
+        android:title="Masukkan Data Santri"
+        android:icon="@drawable/daftar">
+
+    </item>
+ <item
+        android:id="@+id/tentang"
+        android:title="Tentang"
+        android:icon="@drawable/tentang_blck">
+
+    </item>
+<item
+        android:id="@+id/logout"
+        android:title="Logout"
+        android:icon="@drawable/logout">
+
+    </item>
+
+
+
+</menu>
