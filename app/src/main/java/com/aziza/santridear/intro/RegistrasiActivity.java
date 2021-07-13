@@ -140,6 +140,7 @@ public class RegistrasiActivity extends AppCompatActivity {
                                                             });
                                                     FirebaseAuth.getInstance().signOut();
                                                     Intent i = new Intent(RegistrasiActivity.this, LoginActivity.class);
+                                                    i.putExtra("back", 1);
                                                     startActivity(i);
                                                     finish();
 

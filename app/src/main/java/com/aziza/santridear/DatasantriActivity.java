@@ -15,6 +15,7 @@ import com.aziza.santridear.AbsenActivity.AbsenSekolaah;
 import com.aziza.santridear.adapter.MyRecyclerViewAdapter;
 import com.aziza.santridear.adapter.SekolahRecyclerViewAdapter;
 import com.aziza.santridear.models.ListSantri;
+import com.aziza.santridear.models.Santri;
 import com.aziza.santridear.models.Sekolah;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +27,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -33,11 +35,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.aziza.santridear.InputDataSantri.TAG;
+
 public class DatasantriActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FirebaseFirestore db;
-    ArrayList<ListSantri> userArrayList;
+    ArrayList<ListSantri> santriArrayList;
     MyRecyclerViewAdapter myRecyclerViewAdapter;
 
 
@@ -48,47 +52,29 @@ public class DatasantriActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         recyclerView= findViewById(R.id.recyclerview);
+        santriArrayList= new ArrayList<>();
 
-
-
-
-        userArrayList= new ArrayList<>();
-//        myRecyclerViewAdapter= new MyRecyclerViewAdapter(getBaseContext(),userArrayList);
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(myRecyclerViewAdapter);
-//
-//        db.collection("Pengasuh").addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                for (DocumentChange doc: value.getDocumentChanges()){
-//                    if(doc.getType()== DocumentChange.Type.ADDED){
-//                        ListSantri listSantri = doc.getDocument().toObject(ListSantri.class);
-//                        userArrayList.add(listSantri);
-//                        myRecyclerViewAdapter.notifyDataSetChanged();
-//                    }
-//                }
-//            }
-//        });
-        db.collection("Santri").orderBy("santri").get()
+        db.collection("santri")
+                .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for(DocumentSnapshot querySnapshot : task.getResult()){
-                            ListSantri listSantri = new ListSantri(querySnapshot.getString("santri"),
-                                    (querySnapshot.getString("kelas")));
-                            userArrayList.add(listSantri);
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                santriArrayList.add(new ListSantri(document.getData().get("santri")+"", document.getData().get("kelas")+""));
+                                myRecyclerViewAdapter= new MyRecyclerViewAdapter(DatasantriActivity.this, santriArrayList);
+                                recyclerView.setHasFixedSize(false);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(DatasantriActivity.this));
+                                recyclerView.setAdapter(myRecyclerViewAdapter);
+
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-                        myRecyclerViewAdapter= new MyRecyclerViewAdapter(DatasantriActivity.this,userArrayList);
-                        recyclerView.setAdapter(myRecyclerViewAdapter);
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(DatasantriActivity.this, "Problem...", Toast.LENGTH_SHORT).show();
-                Log.w(".......", e.getMessage());
-            }
-        });
+                });
+
 
 
 

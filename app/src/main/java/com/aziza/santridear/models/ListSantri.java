@@ -20,8 +20,6 @@ public class ListSantri {
     public void setSantri(String santri) {
         Santri = santri;
     }
-
-
     public String getKelas() {
         return Kelas;
     }

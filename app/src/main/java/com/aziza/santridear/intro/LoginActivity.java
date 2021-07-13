@@ -35,11 +35,23 @@ public class LoginActivity extends AppCompatActivity {
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
+        Intent in = getIntent();
+        int getRegis = in.getIntExtra("back",0);
+        if(getRegis==1){
+            Toast.makeText(this, "Login kembali", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if (auth.getCurrentUser() != null) {
+                startActivity(new Intent(LoginActivity.this, SplashActivity.class));
+                finish();
+            }
+            else {
+                Toast.makeText(this, "Login kembali", Toast.LENGTH_SHORT).show();
+            }
 
-//        if (auth.getCurrentUser() != null) {
-//            startActivity(new Intent(LoginActivity.this, AdmiinActivity.class));
-//            finish();
-////        }if((auth.getCurrentUser() != null) && saantri.isChecked()) {
+        }
+
+//      if((auth.getCurrentUser() != null) && saantri.isChecked()) {
 ////            startActivity(new Intent(MainActivity.this, UserActivity.class));
 ////            finish();
 //        }

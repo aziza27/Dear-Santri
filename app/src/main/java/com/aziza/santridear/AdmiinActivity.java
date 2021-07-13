@@ -14,9 +14,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.aziza.santridear.AbsenActivity.AbsenSekolaah;
-import com.aziza.santridear.intro.InputDataSantri;
 import com.aziza.santridear.intro.LoginActivity;
-import com.aziza.santridear.intro.RegistrasiActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 

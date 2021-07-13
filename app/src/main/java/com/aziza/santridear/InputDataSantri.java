@@ -1,4 +1,4 @@
-package com.aziza.santridear.intro;
+package com.aziza.santridear;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.aziza.santridear.DatasantriActivity;
-import com.aziza.santridear.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -90,63 +88,37 @@ public class InputDataSantri extends AppCompatActivity {
                 return;
             }
 
+            try{
+                ft = FirebaseFirestore.getInstance();
+                Map<String, Object> hashMap = new HashMap<>();
+                hashMap.put("santri", getSantri);
+                hashMap.put("santri_lengkap", getSantri_lengkap);
+                hashMap.put("kelas", getKelas);
+                hashMap.put("username", getUsername);
+                hashMap.put("password", getPassword);
+
+                ft.collection("santri").document(getSantri_lengkap)
+                        .set(hashMap)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(InputDataSantri.this, "Data Added", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(InputDataSantri.this, "Data not Added ", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             probar1.setVisibility(View.VISIBLE);
             //create user
 
-            auth.createUserWithEmailAndPassword(getUsername, getPassword)
-                    .addOnCompleteListener(InputDataSantri.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            Toast.makeText(InputDataSantri.this, "Berhasil membuat akun santri:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                            probar1.setVisibility(View.GONE);
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(InputDataSantri.this, "Gagal mendaftar." + task.getException(),
-                                        Toast.LENGTH_SHORT).show();
 
-                            } else{
-
-
-
-//                                auth.signInWithEmailAndPassword(getUsername, getPassword)
-//                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                                            @Override
-//                                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                                 if (task.isSuccessful()) {
-                                Log.d("signin", "Login Sukses");
-                                userSantri=auth.getCurrentUser().getUid();
-                                ft = FirebaseFirestore.getInstance();
-                                Map<String, Object> hashMap = new HashMap<>();
-                                hashMap.put("santri", getSantri);
-                                hashMap.put("santri_lengkap", getSantri_lengkap);
-                                hashMap.put("kelas", getKelas);
-                                hashMap.put("username", getUsername);
-                                hashMap.put("password", getPassword);
-
-
-                                ft.collection("Santri").document(userSantri).set(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-
-                                        Toast.makeText(InputDataSantri.this, "Anda Berhasil memasukkan data santri", Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(InputDataSantri.this, "Anda Gagal", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                FirebaseAuth.getInstance().signOut();
-                                Intent i = new Intent(InputDataSantri.this, DatasantriActivity.class);
-                                startActivity(i);
-                                finish();
-                            }
-                        }
-                    });
         });
 
     }

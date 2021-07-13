@@ -13,7 +13,7 @@ public class Santri {
         this.kelas = kelas;
         this.santri = santri;
         this.santri_lengkap = santri_lengkap;
-        Password = password;
+        this.Password = password;
     }
 
     public String getUsername() {

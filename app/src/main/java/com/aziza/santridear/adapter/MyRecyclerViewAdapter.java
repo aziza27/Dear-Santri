@@ -19,11 +19,11 @@ import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyRecyclerViewHolder> {
 
-    DatasantriActivity datasantriActivity;
+    Context context;
     ArrayList<ListSantri> userArrayList;
 
-    public MyRecyclerViewAdapter(DatasantriActivity datasantriActivity, ArrayList<ListSantri> userArrayList) {
-        this.datasantriActivity = datasantriActivity;
+    public MyRecyclerViewAdapter(Context context, ArrayList<ListSantri> userArrayList) {
+        this.context = context;
         this.userArrayList = userArrayList;
     }
 
