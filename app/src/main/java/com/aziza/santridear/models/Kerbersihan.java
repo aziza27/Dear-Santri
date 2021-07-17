@@ -1,25 +1,15 @@
 package com.aziza.santridear.models;
 
-public class Sekolah {
+public class Kerbersihan {
     String Santri;
     String Kelas;
-    Boolean isPresent;
-    public Sekolah() {
+
+    public Kerbersihan() {
     }
 
-    public Sekolah(String santri, String kelas, Boolean isPresent) {
+    public Kerbersihan(String santri, String kelas) {
         Santri = santri;
         Kelas = kelas;
-        isPresent = isPresent;
-
-    }
-
-    public Boolean getPresent() {
-        return isPresent;
-    }
-
-    public void setPresent(Boolean present) {
-        isPresent = present;
     }
 
     public String getSantri() {
@@ -37,6 +27,4 @@ public class Sekolah {
     public void setKelas(String kelas) {
         Kelas = kelas;
     }
-
 }
-

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".TentangActivity">
-
+    tools:context=".Tentang">
 
     <RelativeLayout
         android:id="@+id/r1"
@@ -20,7 +18,7 @@
             android:src="@drawable/s5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        
+
 
         <View
             android:background="#99000000"
@@ -68,43 +66,40 @@
 
     </RelativeLayout>
 
-   <LinearLayout
+    <LinearLayout
 
-       android:layout_marginTop="25dp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content">
-
-       <de.hdodenhof.circleimageview.CircleImageView
-           android:src="@drawable/aziza"
-           android:layout_width="100dp"
-           android:layout_height="100dp"/>
-
-<LinearLayout
-    android:layout_marginLeft="15dp"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-       <TextView
-           android:textStyle="bold"
-           android:text="AZIZATUL AFIFA FADIRUBUN"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"/>
-
-    <TextView
-        android:text="Jurusan Tekhnik Informatika"
+        android:layout_marginTop="25dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:text="stt STIKMA Internasional Malang"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/aziza"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+
+        <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textStyle="bold"
+                android:text="AZIZATUL AFIFA FADIRUBUN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Jurusan Tekhnik Informatika"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="stt STIKMA Internasional Malang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
 
-</LinearLayout>
-   </LinearLayout>
-
-
-
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

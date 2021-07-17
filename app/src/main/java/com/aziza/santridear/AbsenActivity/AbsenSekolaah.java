@@ -1,40 +1,39 @@
 package com.aziza.santridear.AbsenActivity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.aziza.santridear.R;
 import com.aziza.santridear.adapter.SekolahRecyclerViewAdapter;
+import com.aziza.santridear.models.Hadir;
 import com.aziza.santridear.models.Sekolah;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
+import com.aziza.santridear.pengasuh.DatasantriActivity;
+import com.aziza.santridear.pengasuh.InputDataSantri;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import static com.aziza.santridear.pengasuh.InputDataSantri.TAG;
 
 public class AbsenSekolaah extends AppCompatActivity {
     private RecyclerView sekolaah_recyclerview;
     FirebaseFirestore db;
-    private List <Sekolah> sekolahList;
+    ArrayList<Sekolah> sekolahList;
+    ArrayList<Hadir> hadirs;
     private SekolahRecyclerViewAdapter sekolahRecyclerViewAdapter;
+    private Button btn_absen;
+    private FirebaseFirestore ft = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -42,28 +41,54 @@ public class AbsenSekolaah extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_absen_sekolaah);
 
-        db= FirebaseFirestore.getInstance();
-
+        db = FirebaseFirestore.getInstance();
         sekolaah_recyclerview = findViewById(R.id.sekolaah_recyclerview);
-
         sekolahList = new ArrayList<>();
-        sekolahRecyclerViewAdapter = new SekolahRecyclerViewAdapter(getBaseContext(),sekolahList);
-        sekolaah_recyclerview.setHasFixedSize(false);
-        sekolaah_recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        sekolaah_recyclerview.setAdapter(sekolahRecyclerViewAdapter);
+        btn_absen = findViewById(R.id.button_sekolah);
 
-        db.collection("Pengasuh").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                for (DocumentChange doc: value.getDocumentChanges()){
-                    if(doc.getType()== DocumentChange.Type.ADDED){
-                        Sekolah sekolah = doc.getDocument().toObject(Sekolah.class);
-                        sekolahList.add(sekolah);
-                        sekolahRecyclerViewAdapter.notifyDataSetChanged();
+
+        db.collection("santri")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            sekolahList.add(new Sekolah(document.getData().get("santri") + "", document.getData().get("kelas") + "", false));
+                            sekolahRecyclerViewAdapter = new SekolahRecyclerViewAdapter(getBaseContext(), sekolahList);
+                            sekolaah_recyclerview.setHasFixedSize(false);
+                            sekolaah_recyclerview.setLayoutManager(new LinearLayoutManager(AbsenSekolaah.this));
+                            sekolaah_recyclerview.setAdapter(sekolahRecyclerViewAdapter);
+                            sekolahRecyclerViewAdapter.notifyDataSetChanged();
+                            Log.d(TAG, document.getId() + " => " + document.getData());
+                        }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
                     }
-                }
+                });
+
+
+        btn_absen.setOnClickListener(view -> {
+            for (int i = 0; i < sekolahList.size(); i++) {
+                Toast.makeText(this, sekolahList.get(i).getSantri() + " " + sekolahList.get(i).getPresent(), Toast.LENGTH_SHORT).show();
+
+
+            ft = FirebaseFirestore.getInstance();
+            Map<String, Object> hashMap = new HashMap<>();
+            hashMap.put("santri", sekolahList.get(i).getSantri());
+            hashMap.put("kelas", sekolahList.get(i).getKelas());
+            hashMap.put("hadir", sekolahList.get(i).getPresent());
+
+
+            ft.collection("Kehadiran").document(sekolahList.get(i).getSantri())
+                    .set(hashMap)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(AbsenSekolaah.this, "Data Added", Toast.LENGTH_SHORT).show();
+
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(AbsenSekolaah.this, "Data not Added ", Toast.LENGTH_SHORT).show());
+
             }
         });
+
 
     }
 }
