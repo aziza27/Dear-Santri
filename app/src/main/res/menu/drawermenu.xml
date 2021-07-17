@@ -21,6 +21,12 @@
 
     </item>
  <item
+        android:id="@+id/absen_kebersihan"
+        android:title="Absen Kebersihan"
+        android:icon="@drawable/data">
+
+    </item>
+ <item
         android:id="@+id/register_santri"
         android:title="Masukkan Data Santri"
         android:icon="@drawable/daftar">

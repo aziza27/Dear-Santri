@@ -1,4 +1,4 @@
-package com.aziza.santridear;
+package com.aziza.santridear.pengasuh;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -13,7 +13,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.aziza.santridear.AbsenActivity.AbsenKebersihaan;
 import com.aziza.santridear.AbsenActivity.AbsenSekolaah;
+import com.aziza.santridear.R;
+import com.aziza.santridear.Tentang;
 import com.aziza.santridear.intro.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +55,9 @@ public class AdmiinActivity extends AppCompatActivity {
                     Toast.makeText(AdmiinActivity.this, "Absen Sekolah", Toast.LENGTH_SHORT).show();
                     openActivity(AbsenSekolaah.class);
                     return  true;
+                    case R.id.absen_kebersihan: Toast.makeText(AdmiinActivity.this, "Absen Kebersihan", Toast.LENGTH_SHORT).show();
+                    openActivity(AbsenKebersihaan.class);
+                    return  true;
                     case R.id.data_santri:
                     Toast.makeText(AdmiinActivity.this, "Data Santri", Toast.LENGTH_SHORT).show();
                     openActivity(DatasantriActivity.class);
@@ -62,7 +68,7 @@ public class AdmiinActivity extends AppCompatActivity {
                     return  true;
                     case R.id.tentang:
                     Toast.makeText(AdmiinActivity.this, "Tentang", Toast.LENGTH_SHORT).show();
-                    openActivity(TentangActivity.class);
+                    openActivity(Tentang.class);
                     return  true;
                     case R.id.logout:
                         FirebaseAuth.getInstance().signOut();

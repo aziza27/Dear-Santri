@@ -14,28 +14,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InputDataSantri"
-            android:theme="@style/splash"></activity>
+        <activity android:name=".santri.NotifikasiActivity"></activity>
+        <activity android:name=".santri.ProfilSantri" />
+        <activity android:name=".Tentang" />
+        <activity android:name=".AbsenActivity.AbsenSalat" />
+        <activity
+            android:name=".pengasuh.InputDataSantri"
+            android:theme="@style/splash" />
         <activity
             android:name=".intro.LoginOpsi"
             android:theme="@style/splash" />
         <activity android:name=".AbsenActivity.AbsenKebersihaan" />
         <activity android:name=".AbsenActivity.AbsenSekolaah" />
-        <activity android:name=".TentangActivity" />
         <activity
             android:name=".intro.SplashActivity"
-            android:theme="@style/splash"></activity>
-        <activity
-            android:name=".ProfillActivity"
             android:theme="@style/splash" />
-        <activity android:name=".DatasantriActivity" />
         <activity
-            android:name=".AdmiinActivity"
+            android:name=".pengasuh.ProfillActivity"
+            android:theme="@style/splash" />
+        <activity android:name=".pengasuh.DatasantriActivity" />
+        <activity
+            android:name=".pengasuh.AdmiinActivity"
             android:theme="@style/DrawerTheme" />
         <activity
             android:name=".intro.RegistrasiActivity"
             android:theme="@style/splash" />
-        <activity android:name=".SantriActivity" />
+        <activity android:name=".santri.SantriActivity" />
         <activity
             android:name=".intro.LoginActivity"
             android:theme="@style/splash">
