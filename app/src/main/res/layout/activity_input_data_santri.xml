@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".InputDataSantri">
+    tools:context=".pengasuh.InputDataSantri">
 
     <ImageView
         android:layout_marginTop="5dp"

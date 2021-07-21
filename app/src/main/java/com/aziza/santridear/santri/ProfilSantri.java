@@ -1,4 +1,4 @@
-package com.aziza.santridear;
+package com.aziza.santridear.santri;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.aziza.santridear.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -22,10 +23,8 @@ public class ProfilSantri extends AppCompatActivity {
     TextView nama_profil,nama,nama_lengkap,kelas;
     FrameLayout beranda;
     String userId;
-    DatabaseReference dr;
     FirebaseAuth auth;
     FirebaseFirestore ft;
-    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

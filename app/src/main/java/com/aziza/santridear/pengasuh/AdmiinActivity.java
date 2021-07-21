@@ -1,4 +1,4 @@
-package com.aziza.santridear;
+package com.aziza.santridear.pengasuh;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.aziza.santridear.AbsenActivity.AbsenKebersihaan;
 import com.aziza.santridear.AbsenActivity.AbsenSekolaah;
+import com.aziza.santridear.R;
+import com.aziza.santridear.Tentang;
 import com.aziza.santridear.intro.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;

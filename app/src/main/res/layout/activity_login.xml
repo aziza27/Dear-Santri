@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:padding="15dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="300dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -54,38 +54,6 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_marginBottom="10dp"
-            android:layout_margin="20dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/pengasuh"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginLeft="10dp"
-                android:text="PENGASUH"
-                android:textColor="@drawable/radio_text_selector"
-                android:elevation="4dp"
-                android:button="@drawable/null_radio_button"
-                android:background="@drawable/radio_selector"
-                android:layout_width="100dp"
-                android:layout_height="25dp"/>
-            <RadioButton
-                android:id="@+id/saantri"
-                android:layout_marginHorizontal="20dp"
-                android:text="SANTRI"
-                android:textColor="@drawable/radio_text_selector"
-                android:elevation="4dp"
-                android:button="@drawable/null_radio_button"
-                android:background="@drawable/radio_selector"
-                android:layout_width="80dp"
-                android:layout_height="25dp"/>
-
-        </RadioGroup>
 
     </LinearLayout>
 

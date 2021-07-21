@@ -10,6 +10,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.aziza.santridear.R;
+import com.aziza.santridear.adapter.KebersihanRecyclerViewAdapter;
+import com.aziza.santridear.models.Kerbersihan;
+import com.aziza.santridear.models.Sekolah;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,15 +21,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
 public class AbsenKebersihaan extends AppCompatActivity {
     RecyclerView kebersihaan_recyclerview;
     FirebaseFirestore db;
-    FirebaseAuth auth;
+    ArrayList<Kerbersihan> kebersihanList;
+    KebersihanRecyclerViewAdapter kebersihanRecyclerViewAdapter;
 
 
 
@@ -35,55 +43,29 @@ public class AbsenKebersihaan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_absen_kebersihaan);
 
+        db=FirebaseFirestore.getInstance();
+        kebersihaan_recyclerview=findViewById(R.id.kebersihaan_recyclerview);
+        kebersihanList = new ArrayList<>();
 
-        setUpRecyclerView();
-        setUpFireBase();
-        addTestDatasToFirebase();
-        loadDataFromDataBase();
-    }
 
-    private void loadDataFromDataBase() {
-        db.collection("Santri").orderBy("santri").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for(DocumentSnapshot querySnapshot : task.getResult()){
-
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AbsenKebersihaan.this, "Problem...", Toast.LENGTH_SHORT).show();
-                Log.w(".......", e.getMessage());
+        db.collection("santri")
+                .get()
+                .addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                    kebersihanList.add(new Kerbersihan(documentSnapshot.getData().get("santri")+"",documentSnapshot.getData().get("kelas")+""));
+                    kebersihanRecyclerViewAdapter = new KebersihanRecyclerViewAdapter(getBaseContext(),kebersihanList);
+                    kebersihaan_recyclerview.setHasFixedSize(false);
+                    kebersihaan_recyclerview.setLayoutManager(new LinearLayoutManager(AbsenKebersihaan.this));
+                    kebersihaan_recyclerview.setAdapter(kebersihanRecyclerViewAdapter);
+                    Log.d(TAG,documentSnapshot.getId()+ "=>" +documentSnapshot.getData());
+                }
+            }else{
+                Log.d(TAG,"Dokumen error : ",task.getException());
             }
         });
-    }
-
-    private void addTestDatasToFirebase() {
-        Map<String,String> dataMapsekolah = new HashMap<>();
-        dataMapsekolah.put("nama","santri");
-        dataMapsekolah.put("kelas","kelas");
-
-        db.collection("Santri")
-                .add(dataMapsekolah)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                    }
-                });
-    }
 
 
-    private void setUpFireBase() {
-        db = FirebaseFirestore.getInstance();
-
-    }
-
-    private void setUpRecyclerView() {
-        kebersihaan_recyclerview= findViewById(R.id.kebersihaan_recyclerview);
-        kebersihaan_recyclerview.setHasFixedSize(false);
-        kebersihaan_recyclerview.setLayoutManager(new LinearLayoutManager(this));
 
     }
 

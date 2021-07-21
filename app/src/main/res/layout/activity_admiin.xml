@@ -10,7 +10,7 @@
     android:id="@+id/dl_admin"
     android:background="#ffff"
     android:orientation="vertical"
-    tools:context=".AdmiinActivity">
+    tools:context=".pengasuh.AdmiinActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

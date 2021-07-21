@@ -1,8 +1,7 @@
 package com.aziza.santridear.models;
 
-public class Sekolah {
-    String Santri;
-    String Kelas;
+public class Hadir {
+
     Boolean isPresent;
 
     public Boolean getPresent() {
@@ -13,29 +12,11 @@ public class Sekolah {
         isPresent = present;
     }
 
-    public Sekolah() {
+    public Hadir() {
     }
 
-    public Sekolah(String santri, String kelas,Boolean isPresent) {
-        Santri = santri;
-        Kelas = kelas;
+    public Hadir( Boolean isPresent) {
         isPresent = isPresent;
-    }
-
-    public String getSantri() {
-        return Santri;
-    }
-
-    public void setSantri(String santri) {
-        Santri = santri;
-    }
-
-    public String getKelas() {
-        return Kelas;
-    }
-
-    public void setKelas(String kelas) {
-        Kelas = kelas;
     }
 
 }

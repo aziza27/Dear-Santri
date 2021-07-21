@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.aziza.santridear.AdmiinActivity;
+import com.aziza.santridear.pengasuh.AdmiinActivity;
 import com.aziza.santridear.R;
-import com.aziza.santridear.SantriActivity;
+import com.aziza.santridear.santri.SantriActivity;
 
 public class LoginOpsi extends AppCompatActivity {
     Button santriOpsi,pengasuhOpsi;

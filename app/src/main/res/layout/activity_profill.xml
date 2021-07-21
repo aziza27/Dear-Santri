@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ProfillActivity">
+    tools:context=".pengasuh.ProfillActivity">
 
 
     <LinearLayout
@@ -33,6 +33,7 @@
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/beranda"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="-25dp"
