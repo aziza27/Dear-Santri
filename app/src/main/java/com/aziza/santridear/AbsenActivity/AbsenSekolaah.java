@@ -56,7 +56,7 @@ public class AbsenSekolaah extends AppCompatActivity {
         bulan = calendar.get(Calendar.MONTH);
         tahun = calendar.get(Calendar.YEAR);
 
-         String tanggal= hari + "/" + bulan + "/" + tahun;
+        String tanggal= hari + "/" + bulan + "/" + tahun;
 
 
 
@@ -87,22 +87,22 @@ public class AbsenSekolaah extends AppCompatActivity {
                 Toast.makeText(this, tanggal, Toast.LENGTH_SHORT).show();
 
 
-            ft = FirebaseFirestore.getInstance();
+                ft = FirebaseFirestore.getInstance();
 
-            Map<String, Object> hashMap = new HashMap<>();
-            hashMap.put("santri", sekolahList.get(i).getSantri());
-            hashMap.put("kelas", sekolahList.get(i).getKelas());
-            hashMap.put("hadir", sekolahList.get(i).getPresent());
-            hashMap.put("date",tanggal);
+                Map<String, Object> hashMap = new HashMap<>();
+                hashMap.put("santri", sekolahList.get(i).getSantri());
+                hashMap.put("kelas", sekolahList.get(i).getKelas());
+                hashMap.put("hadir", sekolahList.get(i).getPresent());
+                hashMap.put("date",tanggal);
 
 
-            ft.collection("Kehadiran").document(tanggal)
-                    .set(hashMap)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(AbsenSekolaah.this, "Data Added", Toast.LENGTH_SHORT).show();
+                ft.collection("Kehadiran").document(tanggal)
+                        .set(hashMap)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(AbsenSekolaah.this, "Data Added", Toast.LENGTH_SHORT).show();
 
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(AbsenSekolaah.this, "Data not Added ", Toast.LENGTH_SHORT).show());
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(AbsenSekolaah.this, "Data not Added ", Toast.LENGTH_SHORT).show());
 
             }
         });
