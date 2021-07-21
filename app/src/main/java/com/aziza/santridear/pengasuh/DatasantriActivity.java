@@ -56,22 +56,19 @@ public class DatasantriActivity extends AppCompatActivity {
 
         db.collection("santri")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                santriArrayList.add(new ListSantri(document.getData().get("santri")+"", document.getData().get("kelas")+""));
-                                myRecyclerViewAdapter= new MyRecyclerViewAdapter(DatasantriActivity.this, santriArrayList);
-                                recyclerView.setHasFixedSize(false);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(DatasantriActivity.this));
-                                recyclerView.setAdapter(myRecyclerViewAdapter);
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            santriArrayList.add(new ListSantri(document.getData().get("santri")+"", document.getData().get("kelas")+""));
+                            myRecyclerViewAdapter= new MyRecyclerViewAdapter(DatasantriActivity.this, santriArrayList);
+                            recyclerView.setHasFixedSize(false);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(DatasantriActivity.this));
+                            recyclerView.setAdapter(myRecyclerViewAdapter);
 
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            Log.d(TAG, document.getId() + " => " + document.getData());
                         }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
                     }
                 });
 

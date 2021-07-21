@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfillActivity extends AppCompatActivity{
     private static final int GALLERY_INTENT_CODE=1023;
         TextView nama_profil,nama,nama_lengkap,kelas;
+        FrameLayout beranda;
         String userId;
         DatabaseReference dr;
         FirebaseAuth auth;
@@ -67,19 +69,29 @@ public class ProfillActivity extends AppCompatActivity{
         nama_profil = findViewById(R.id.nama_profil);
         nama_lengkap = findViewById(R.id.nama_lengkap);
         kelas = findViewById(R.id.kelas);
+        beranda = findViewById(R.id.beranda);
 
         auth = FirebaseAuth.getInstance();
         ft = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
 
 
-        DocumentReference dr = ft.collection("Pengasuh").document(userId);
+        DocumentReference dr = ft.collection("Santri").document(userId);
         dr.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                nama.setText(documentSnapshot.getString("pengasuh"));
-                nama_profil.setText(documentSnapshot.getString("pengasuh"));
-                nama_lengkap.setText(documentSnapshot.getString("pengasuh_lengkap"));
+                nama.setText(documentSnapshot.getString("santri"));
+                nama_profil.setText(documentSnapshot.getString("santri"));
+                nama_lengkap.setText(documentSnapshot.getString("santri_lengkap"));
+            }
+        });
+
+        beranda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent s = new Intent(ProfillActivity.this,SantriActivity.class);
+                startActivity(s);
+                finish();
             }
         });
 
