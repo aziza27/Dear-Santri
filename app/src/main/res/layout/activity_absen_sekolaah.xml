@@ -16,9 +16,6 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-<<<<<<< HEAD
-    <Button
-=======
     <TextView
         android:id="@+id/date"
         android:layout_centerInParent="true"
@@ -32,18 +29,13 @@
 
     <Button
         android:layout_centerInParent="true"
->>>>>>> 32aad3703b20c20271d8ed8bc159db1af7fc85c6
         android:id="@+id/button_sekolah"
         android:textSize="20dp"
         android:textColor="#fff"
         android:text="Absen"
         android:background="@drawable/button1"
         android:layout_alignParentBottom="true"
-<<<<<<< HEAD
-        android:layout_width="match_parent"
-=======
         android:layout_width="400dp"
->>>>>>> 32aad3703b20c20271d8ed8bc159db1af7fc85c6
         android:layout_height="wrap_content"/>
 
 </RelativeLayout>
