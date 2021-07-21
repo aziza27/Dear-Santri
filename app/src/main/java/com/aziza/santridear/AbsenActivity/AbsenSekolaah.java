@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+<<<<<<< HEAD
+=======
+import android.widget.TextView;
+>>>>>>> 32aad3703b20c20271d8ed8bc159db1af7fc85c6
 import android.widget.Toast;
 
 import com.aziza.santridear.R;
@@ -21,6 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +37,11 @@ public class AbsenSekolaah extends AppCompatActivity {
     FirebaseFirestore db;
     ArrayList<Sekolah> sekolahList;
     ArrayList<Hadir> hadirs;
+<<<<<<< HEAD
+=======
+    int hari,bulan,tahun;
+    TextView date;
+>>>>>>> 32aad3703b20c20271d8ed8bc159db1af7fc85c6
     private SekolahRecyclerViewAdapter sekolahRecyclerViewAdapter;
     private Button btn_absen;
     private FirebaseFirestore ft = FirebaseFirestore.getInstance();
@@ -45,6 +56,18 @@ public class AbsenSekolaah extends AppCompatActivity {
         sekolaah_recyclerview = findViewById(R.id.sekolaah_recyclerview);
         sekolahList = new ArrayList<>();
         btn_absen = findViewById(R.id.button_sekolah);
+<<<<<<< HEAD
+=======
+        date=findViewById(R.id.date);
+        Calendar calendar = Calendar.getInstance();
+        hari = calendar.get(Calendar.DAY_OF_MONTH);
+        bulan = calendar.get(Calendar.MONTH);
+        tahun = calendar.get(Calendar.YEAR);
+
+         String tanggal= hari + "/" + bulan + "/" + tahun;
+
+
+>>>>>>> 32aad3703b20c20271d8ed8bc159db1af7fc85c6
 
 
         db.collection("santri")
@@ -67,18 +90,36 @@ public class AbsenSekolaah extends AppCompatActivity {
 
 
         btn_absen.setOnClickListener(view -> {
+<<<<<<< HEAD
             for (int i = 0; i < sekolahList.size(); i++) {
                 Toast.makeText(this, sekolahList.get(i).getSantri() + " " + sekolahList.get(i).getPresent(), Toast.LENGTH_SHORT).show();
 
 
             ft = FirebaseFirestore.getInstance();
+=======
+            date.setText(tanggal);
+            for (int i = 0; i < sekolahList.size(); i++) {
+                Toast.makeText(this, sekolahList.get(i).getSantri() + " " + sekolahList.get(i).getPresent(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, tanggal, Toast.LENGTH_SHORT).show();
+
+
+            ft = FirebaseFirestore.getInstance();
+
+>>>>>>> 32aad3703b20c20271d8ed8bc159db1af7fc85c6
             Map<String, Object> hashMap = new HashMap<>();
             hashMap.put("santri", sekolahList.get(i).getSantri());
             hashMap.put("kelas", sekolahList.get(i).getKelas());
             hashMap.put("hadir", sekolahList.get(i).getPresent());
+<<<<<<< HEAD
 
 
             ft.collection("Kehadiran").document(sekolahList.get(i).getSantri())
+=======
+            hashMap.put("date",tanggal);
+
+
+            ft.collection("Kehadiran").document(tanggal)
+>>>>>>> 32aad3703b20c20271d8ed8bc159db1af7fc85c6
                     .set(hashMap)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(AbsenSekolaah.this, "Data Added", Toast.LENGTH_SHORT).show();
