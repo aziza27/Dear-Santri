@@ -11,19 +11,31 @@
         tools:listitem="@layout/item_sekolah"
         android:id="@+id/sekolaah_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/date"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_sekolah"
+        android:layout_marginBottom="29dp"
+        android:text="@string/date"
+        android:textColor="#0000"
+        android:textSize="25sp" />
+
     <Button
+        android:layout_centerInParent="true"
         android:id="@+id/button_sekolah"
         android:textSize="20dp"
         android:textColor="#fff"
         android:text="Absen"
         android:background="@drawable/button1"
         android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"/>
 
 </RelativeLayout>
