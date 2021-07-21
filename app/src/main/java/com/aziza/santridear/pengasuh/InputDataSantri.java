@@ -89,8 +89,6 @@ public class InputDataSantri extends AppCompatActivity {
                         .addOnCompleteListener(InputDataSantri.this, task -> {
                             Toast.makeText(InputDataSantri.this, "Berhasil membuat akun Santri:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                             probar1.setVisibility(View.GONE);
-                            FirebaseAuth fa = FirebaseAuth.getInstance();
-                            String uid = fa.getCurrentUser().getUid();
                             // If sign in fails, display a message to the user. If sign in succeeds
                             // the auth state listener will be notified and logic to handle the
                             // signed in user can be handled in the listener.
@@ -106,9 +104,8 @@ public class InputDataSantri extends AppCompatActivity {
                                 hashMap.put("kelas", getKelas);
                                 hashMap.put("username", getUsername);
                                 hashMap.put("password", getPassword);
-                                hashMap.put("uid", uid);
 
-                                ft.collection("data_santri").document(uid)
+                                ft.collection("santri").document(getSantri_lengkap)
                                         .set(hashMap)
                                         .addOnSuccessListener(aVoid -> {
                                             Toast.makeText(InputDataSantri.this, "Data Added", Toast.LENGTH_SHORT).show();

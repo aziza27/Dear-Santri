@@ -3,8 +3,6 @@
     package="com.aziza.santridear">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -16,10 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TentangAplikasii"></activity>
-        <activity android:name=".TentangAplikasi" />
-        <activity android:name=".santri.NotifikasiActivity" />
+        <activity android:name=".santri.NotifikasiActivity"></activity>
         <activity android:name=".santri.ProfilSantri" />
+        <activity android:name=".Tentang" />
         <activity android:name=".AbsenActivity.AbsenSalat" />
         <activity
             android:name=".pengasuh.InputDataSantri"
@@ -52,11 +49,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver
-            android:name=".notification.NotifReceiver"
-            android:enabled="true"
-            android:exported="true" />
     </application>
 
 </manifest>

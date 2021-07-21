@@ -12,14 +12,12 @@
     android:orientation="vertical"
     tools:context=".pengasuh.AdmiinActivity">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
             layout="@layout/app_bar"/>
-
 
     </RelativeLayout>
     <com.google.android.material.navigation.NavigationView

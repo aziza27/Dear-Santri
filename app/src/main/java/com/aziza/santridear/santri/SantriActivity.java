@@ -1,18 +1,16 @@
 package com.aziza.santridear.santri;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.aziza.santridear.R;
-import com.aziza.santridear.TentangAplikasii;
+import com.aziza.santridear.Tentang;
 import com.aziza.santridear.intro.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -20,8 +18,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-
-import org.jetbrains.annotations.NotNull;
 
 public class SantriActivity extends AppCompatActivity {
     CardView cardLogout,cardProfil,cardNotif,cardTentang;
@@ -39,7 +35,7 @@ public class SantriActivity extends AppCompatActivity {
         userId = auth.getCurrentUser().getUid();
 
 
-        DocumentReference dr = ft.collection("data_santri").document(userId);
+        DocumentReference dr = ft.collection("santri").document(userId);
         dr.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
@@ -62,7 +58,7 @@ public class SantriActivity extends AppCompatActivity {
 
         cardTentang.setOnClickListener(view -> {
 
-            Intent tentang = new Intent(SantriActivity.this, TentangAplikasii.class);
+            Intent tentang = new Intent(SantriActivity.this, Tentang.class);
             startActivity(tentang);
             finish();
         });
@@ -79,21 +75,6 @@ public class SantriActivity extends AppCompatActivity {
             finish();
         });
 
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_notif, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
-        if (item.getItemId() == R.id.notif) {
-            startActivity(new Intent(this, NotifikasiActivity.class));
-        }
-        return true;
 
     }
 

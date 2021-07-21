@@ -3,23 +3,13 @@ package com.aziza.santridear.models;
 public class Kerbersihan {
     String Santri;
     String Kelas;
-    Boolean isPresent;
 
     public Kerbersihan() {
     }
 
-    public Kerbersihan(String santri, String kelas, Boolean isPresent) {
+    public Kerbersihan(String santri, String kelas) {
         Santri = santri;
         Kelas = kelas;
-        isPresent = isPresent;
-    }
-
-    public Boolean getPresent() {
-        return isPresent;
-    }
-
-    public void setPresent(Boolean present) {
-        isPresent = present;
     }
 
     public String getSantri() {

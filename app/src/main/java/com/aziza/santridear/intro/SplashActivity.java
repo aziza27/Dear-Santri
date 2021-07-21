@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.ProgressBar;
 
 import com.aziza.santridear.R;
-import com.aziza.santridear.notification.NotifReceiver;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -25,7 +24,6 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startProgress();
-
                 Intent apasih = new Intent(SplashActivity.this, LoginOpsi.class);
                 startActivity(apasih);
             }

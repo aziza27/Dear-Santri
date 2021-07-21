@@ -17,15 +17,12 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:textColorHint="#fff"
             android:id="@+id/user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp">
 
             <EditText
-                android:drawablePadding="8dp"
-                android:drawableTint="#fff"
                 android:drawableLeft="@drawable/person"
                 android:id="@+id/username"
                 android:layout_width="match_parent"
@@ -35,15 +32,12 @@
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:textColorHint="#fff"
             android:id="@+id/pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp">
 
             <EditText
-                android:drawablePadding="8dp"
-                android:drawableTint="#fff"
                 android:drawableLeft="@drawable/password"
                 android:id="@+id/password"
                 android:layout_width="match_parent"
