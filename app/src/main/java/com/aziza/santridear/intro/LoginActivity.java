@@ -10,11 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aziza.santridear.notification.NotifReceiver;
 import com.aziza.santridear.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,11 +26,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText username,password;
     private ProgressBar probar;
     private FirebaseAuth auth;
+    private NotifReceiver notifReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+        notifReceiver = new NotifReceiver();
 
         Intent in = getIntent();
         int getRegis = in.getIntExtra("back",0);
@@ -97,6 +98,8 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Login gagal", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
+                                notifReceiver.setRepeatingAlarm(LoginActivity.this);
+
                                 Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
                                 startActivity(intent);
                                 finish();

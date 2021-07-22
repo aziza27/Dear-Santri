@@ -19,6 +19,7 @@
         <include
             layout="@layout/app_bar"/>
 
+
     </RelativeLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nv_admin"

@@ -18,5 +18,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="date">"Tanggal/Bulan/Tahun"</string>
+    <string name="notif_title">Pemberitahuan</string>
+    <string name="notif_message">Anak anda hadir</string>
 
 </resources>

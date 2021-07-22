@@ -1,4 +1,4 @@
-package com.aziza.santridear.Notification;
+package com.aziza.santridear.notification;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -11,58 +11,88 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.aziza.santridear.R;
+import com.aziza.santridear.intro.SplashActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class NotifReceiver extends BroadcastReceiver {
-    public static final String TYPE_ONE_TIME = "OneTimeAlarm";
-    public static final String TYPE_REPEATING = "RepeatingAlarm";
-    private static final String EXTRA_MESSAGE = "message";
+    public static final Integer NOTIFICATION_ID = 1;
+    public static final String CHANNEL_ID = "channel_1";
+    public static final String CHANNEL_NAME = "channel_alarm";
     private static final String EXTRA_TYPE = "type";
 
+    FirebaseFirestore ft = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     private final static int ID_ONETIME = 100;
     private final static int ID_REPEATING = 101;
 
+    Date c = Calendar.getInstance().getTime();
+
+    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+    String formattedDate = df.format(c);
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        String type = intent.getStringExtra(EXTRA_TYPE);
-        String message = intent.getStringExtra(EXTRA_MESSAGE);
 
-        String title = type.equalsIgnoreCase(TYPE_ONE_TIME) ? TYPE_ONE_TIME : TYPE_REPEATING;
-        int notifId = type.equalsIgnoreCase(TYPE_ONE_TIME) ? ID_ONETIME : ID_REPEATING;
+        String title = context.getString(R.string.notif_title);
 
-        //Jika Anda ingin menampilkan dengan Toast anda bisa menghilangkan komentar pada baris dibawah ini.
-        //showToast(context, title, message);
-
-        showAlarmNotification(context, title, message, notifId);
+        getPresentSantri(context.getApplicationContext());
+//        showAlarmNotification(context, "Kehadiran", "Anak anda hadir", 100);
     }
 
-    // Gunakan metode ini untuk menampilkan toast
+    private void getPresentSantri(Context context) {
+        DocumentReference docref = ft.collection("santri").document("Kehadiran").collection(formattedDate).document(auth.getUid());
+        docref.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document != null) {
+                    Boolean hadir = document.getBoolean("hadir");
+                    String name = document.getString("santri");
+                    String present = "";
 
-    private void showToast(Context context, String title, String message) {
-        Toast.makeText(context, title + " : " + message, Toast.LENGTH_LONG).show();
+                    if (hadir) {
+                        present = "Hadir";
+                    } else {
+                        present = "Tidak Hadir";
+                    }
+
+                    String title = "Kehadiran";
+                    String message = "Ananda " + name + " " + present;
+                    int notifId = 100;
+
+                    showAlarmNotification(context, title, message, notifId);
+
+
+                }
+
+            }
+        });
     }
 
     // Gunakan metode ini untuk menampilkan notifikasi
-    private void showAlarmNotification(Context context, String title, String message, int notifId) {
-        String CHANNEL_ID = "Channel_1";
-        String CHANNEL_NAME = "AlarmManager channel";
+    private void showAlarmNotification(Context context, String title, String message,
+                                       int notifId) {
+        Intent intent = new Intent(context, SplashActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
 
         NotificationManager notificationManagerCompat = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.santri)
+                .setSmallIcon(R.drawable.putri)
+                .setContentIntent(pi)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setColor(ContextCompat.getColor(context, android.R.color.transparent))
@@ -99,21 +129,19 @@ public class NotifReceiver extends BroadcastReceiver {
     }
 
     // Metode ini digunakan untuk menjalankan alarm repeating
-    public void setRepeatingAlarm(Context context, String type, String time, String message) {
+    public void setRepeatingAlarm(Context context) {
 
         // Validasi inputan waktu terlebih dahulu
 //        if (isDateInvalid(time, TIME_FORMAT)) return;
-
+        Toast.makeText(context, "Notif Aktif", Toast.LENGTH_SHORT).show();
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, NotifReceiver.class);
-        intent.putExtra(EXTRA_MESSAGE, message);
-        intent.putExtra(EXTRA_TYPE, type);
 
-        String[] timeArray = time.split(":");
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]));
-        calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]));
+
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0);
@@ -121,7 +149,6 @@ public class NotifReceiver extends BroadcastReceiver {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         }
 
-        Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show();
     }
 
 
