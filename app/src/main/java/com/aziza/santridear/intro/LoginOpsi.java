@@ -44,12 +44,12 @@ public class LoginOpsi extends AppCompatActivity {
             }
         });
 
-        sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // do something, the isChecked will be
-            // true if the switch is in the On position
-            NotifReceiver notif = new NotifReceiver();
-            notif.setRepeatingAlarm(this);
-        });
+//        sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            // do something, the isChecked will be
+//            // true if the switch is in the On position
+//            NotifReceiver notif = new NotifReceiver();
+//            notif.setRepeatingAlarm(this);
+//        });
 
     }
 }

@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 
 import com.aziza.santridear.R;
 import com.aziza.santridear.intro.SplashActivity;
+import com.aziza.santridear.santri.NotifikasiActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -70,7 +71,7 @@ public class NotifReceiver extends BroadcastReceiver {
                     }
 
                     String title = "Kehadiran";
-                    String message = "Ananda " + name + " " + present;
+                    String message = "Ananda " + name + " " + present + " pada " + formattedDate;
                     int notifId = 100;
 
                     showAlarmNotification(context, title, message, notifId);
@@ -85,7 +86,7 @@ public class NotifReceiver extends BroadcastReceiver {
     // Gunakan metode ini untuk menampilkan notifikasi
     private void showAlarmNotification(Context context, String title, String message,
                                        int notifId) {
-        Intent intent = new Intent(context, SplashActivity.class);
+        Intent intent = new Intent(context, NotifikasiActivity.class);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
 
         NotificationManager notificationManagerCompat = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

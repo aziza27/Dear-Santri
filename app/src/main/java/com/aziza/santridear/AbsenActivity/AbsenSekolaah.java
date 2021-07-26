@@ -21,10 +21,16 @@ import com.aziza.santridear.pengasuh.InputDataSantri;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.SetOptions;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -88,6 +94,7 @@ public class AbsenSekolaah extends AppCompatActivity {
                 });
 
 
+
         btn_absen.setOnClickListener(view -> {
             date.setText(formattedDate);
             for (int i = 0; i < sekolahList.size(); i++) {
@@ -103,6 +110,32 @@ public class AbsenSekolaah extends AppCompatActivity {
                 hashMap.put("hadir", sekolahList.get(i).getPresent());
                 hashMap.put("date",tanggal);
 
+                Boolean hadir = sekolahList.get(i).getPresent();
+                String present = "";
+                String nama = sekolahList.get(i).getSantri();
+                if (hadir){
+                    present = "Hadir";
+                } else {
+                    present = "Tidak Hadir";
+                }
+                Map<String, Object> notif = new HashMap<>();
+                Map<String, Object> objectExample = new HashMap<>();
+                objectExample.put("title", "Kehadiran");
+                objectExample.put("msg", "Ananda " + nama +" "+ present + " pada " + formattedDate);
+                objectExample.put("hadir", sekolahList.get(i).getPresent());
+
+                notif.put(formattedDate, objectExample);
+
+
+
+
+                ft.collection("notif").document(sekolahList.get(i).getKelas())
+                        .set(notif, SetOptions.merge())
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(AbsenSekolaah.this, "Data Added", Toast.LENGTH_SHORT).show();
+
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(AbsenSekolaah.this, "Data not Added ", Toast.LENGTH_SHORT).show());
 
                 ft.collection("santri").document("Kehadiran").collection(formattedDate).document(sekolahList.get(i).getKelas())
                         .set(hashMap)
