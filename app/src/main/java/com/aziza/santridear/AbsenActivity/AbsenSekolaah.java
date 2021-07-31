@@ -52,7 +52,6 @@ public class AbsenSekolaah extends AppCompatActivity {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     Spinner spinner;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
