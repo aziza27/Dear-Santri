@@ -35,7 +35,7 @@ public class SantriActivity extends AppCompatActivity {
         userId = auth.getCurrentUser().getUid();
 
 
-        DocumentReference dr = ft.collection("santri").document(userId);
+        DocumentReference dr = ft.collection("Pengasuh").document(userId);
         dr.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
@@ -60,19 +60,17 @@ public class SantriActivity extends AppCompatActivity {
 
             Intent tentang = new Intent(SantriActivity.this, Tentang.class);
             startActivity(tentang);
-            finish();
         });
 
         cardProfil.setOnClickListener(view -> {
             Intent profil = new Intent(SantriActivity.this,ProfilSantri.class);
             startActivity(profil);
-            finish();
         });
 
         cardNotif.setOnClickListener(view -> {
-            Intent notif = new Intent(SantriActivity.this,NotifikasiActivity.class);
+            Intent notif = new Intent(SantriActivity.this, NotifikasiActivity.class);
             startActivity(notif);
-            finish();
+
         });
 
 

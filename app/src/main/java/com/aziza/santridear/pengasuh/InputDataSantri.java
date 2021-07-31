@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class InputDataSantri extends AppCompatActivity {
     public static final String TAG = "TAG";
-    TextInputEditText santri,santri_lengkap,kelas, username, password;
+    TextInputEditText santri,santri_lengkap,kelas, username, password, role;
     Button daftar;
     ProgressBar probar1;
     private FirebaseDatabase database;
@@ -42,6 +42,7 @@ public class InputDataSantri extends AppCompatActivity {
         setContentView(R.layout.activity_input_data_santri);
 
         santri = findViewById(R.id.santri);
+        role = findViewById(R.id.role);
         santri_lengkap = findViewById(R.id.santri_lengkap);
         kelas = findViewById(R.id.kelas);
         username = findViewById(R.id.username);
@@ -61,6 +62,7 @@ public class InputDataSantri extends AppCompatActivity {
             final String getKelas = kelas.getText().toString();
             final String getUsername = username.getText().toString().trim();
             final String getPassword = password.getText().toString().trim();
+            final String getStatus = role.getText().toString().trim();
 
             if (TextUtils.isEmpty(getSantri)){
                 Toast.makeText(getApplicationContext(),"Masukkan Nama Panggil Santri !", Toast.LENGTH_SHORT).show();
@@ -79,6 +81,10 @@ public class InputDataSantri extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Masukkan Kata Sandi !", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (TextUtils.isEmpty(getStatus)) {
+                Toast.makeText(getApplicationContext(), "Masukkan Status!", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (getPassword.length() < 6) {
                 Toast.makeText(getApplicationContext(), "Kata sandi terlalu pendek, Minimal 6 karakter !", Toast.LENGTH_SHORT).show();
                 return;
@@ -89,6 +95,8 @@ public class InputDataSantri extends AppCompatActivity {
                         .addOnCompleteListener(InputDataSantri.this, task -> {
                             Toast.makeText(InputDataSantri.this, "Berhasil membuat akun Santri:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                             probar1.setVisibility(View.GONE);
+                            FirebaseAuth fa = FirebaseAuth.getInstance();
+                            String uid = fa.getCurrentUser().getUid();
                             // If sign in fails, display a message to the user. If sign in succeeds
                             // the auth state listener will be notified and logic to handle the
                             // signed in user can be handled in the listener.
@@ -104,8 +112,10 @@ public class InputDataSantri extends AppCompatActivity {
                                 hashMap.put("kelas", getKelas);
                                 hashMap.put("username", getUsername);
                                 hashMap.put("password", getPassword);
+                                hashMap.put("status", getStatus);
+                                hashMap.put("uid", uid);
 
-                                ft.collection("santri").document(getSantri_lengkap)
+                                ft.collection("Pengasuh").document(uid)
                                         .set(hashMap)
                                         .addOnSuccessListener(aVoid -> {
                                             Toast.makeText(InputDataSantri.this, "Data Added", Toast.LENGTH_SHORT).show();
@@ -129,7 +139,7 @@ public class InputDataSantri extends AppCompatActivity {
 
 
         });
-}
+    }
 
     @Override
     protected void onResume() {

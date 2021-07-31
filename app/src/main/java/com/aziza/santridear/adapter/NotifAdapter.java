@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aziza.santridear.R;
-import com.aziza.santridear.models.Hadir;
 import com.aziza.santridear.models.Notif;
 import com.aziza.santridear.models.Sekolah;
 

@@ -34,7 +34,7 @@ public class AdmiinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admiin);
 
         dl_admin =findViewById(R.id.dl_admin);
-        toolbar=findViewById(R.id.app_bar);
+        toolbar=findViewById(R.id.toolbar);
         nv=findViewById(R.id.nv_admin);
 
         setSupportActionBar(toolbar);

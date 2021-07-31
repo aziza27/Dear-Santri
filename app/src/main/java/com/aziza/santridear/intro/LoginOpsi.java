@@ -22,6 +22,16 @@ public class LoginOpsi extends AppCompatActivity {
         santriOpsi=findViewById(R.id.santriOpsi);
         pengasuhOpsi=findViewById(R.id.pengasuhOpsi);
 
+        String status = getIntent().getStringExtra("status");
+
+        if (status.equals("Santri")) {
+                pengasuhOpsi.setVisibility(View.GONE);
+                santriOpsi.setVisibility(View.VISIBLE);
+        } else {
+            pengasuhOpsi.setVisibility(View.VISIBLE);
+            santriOpsi.setVisibility(View.GONE);
+        }
+
         santriOpsi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

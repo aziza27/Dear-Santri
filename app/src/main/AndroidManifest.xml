@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aziza.santridear">
+    package="com.aziza.santridear" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,8 +13,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".santri.NotifikasiActivity"></activity>
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".CobaActivity"
+            android:label="@string/title_activity_coba"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Coba"
+            android:label="@string/title_activity_coba"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity android:name=".santri.NotifikasiActivity" />
         <activity android:name=".santri.ProfilSantri" />
         <activity android:name=".Tentang" />
         <activity android:name=".AbsenActivity.AbsenSalat" />
@@ -42,7 +52,7 @@
         <activity android:name=".santri.SantriActivity" />
         <activity
             android:name=".intro.LoginActivity"
-            android:theme="@style/splash">
+            android:theme="@style/splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

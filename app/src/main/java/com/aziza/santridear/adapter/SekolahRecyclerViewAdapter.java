@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aziza.santridear.R;
-import com.aziza.santridear.models.Hadir;
 import com.aziza.santridear.models.Sekolah;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import java.util.List;
 
 public class SekolahRecyclerViewAdapter extends RecyclerView.Adapter<SekolahRecyclerViewAdapter.ViewHolder> {
     private ArrayList<Sekolah> sekolahList;
-    private ArrayList<Hadir> hadirList;
     private Context context;
 
     private HashMap<Integer, Boolean> isChecked = new HashMap<>();

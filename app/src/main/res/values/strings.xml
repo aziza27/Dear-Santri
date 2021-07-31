@@ -17,5 +17,38 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="notif_title">Kehadiran</string>
 
+    <array name="item_sekolah">
+        <item>Tahfidz</item>
+        <item>Hadits</item>
+        <item>Binnazor</item>
+        <item>Akselerasi</item>
+        <item>Muhadharah</item>
+        <item>B. Arab</item>
+    </array>
+    <array name="item_salat">
+        <item>Qiyamul Lail</item>
+        <item>Subuh</item>
+        <item>Dhuha</item>
+        <item>Dzuhur</item>
+        <item>Ashar</item>
+        <item>Maghrib</item>
+        <item>Isya</item>
+    </array>
+    <array name="item_bersih">
+        <item>Pagi</item>
+        <item>Sore</item>
+    </array>
+    <string name="title_activity_coba">Coba</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>
