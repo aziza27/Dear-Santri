@@ -16,9 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".santri.NotifikasiActivity"></activity>
+        <activity android:name=".TentangAplikasii"></activity>
+        <activity android:name=".TentangAplikasi" />
+        <activity android:name=".santri.NotifikasiActivity" />
         <activity android:name=".santri.ProfilSantri" />
-        <activity android:name=".Tentang" />
         <activity android:name=".AbsenActivity.AbsenSalat" />
         <activity
             android:name=".pengasuh.InputDataSantri"
@@ -51,6 +52,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver
             android:name=".notification.NotifReceiver"
             android:enabled="true"

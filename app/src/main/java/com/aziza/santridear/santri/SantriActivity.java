@@ -9,11 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.aziza.santridear.R;
-import com.aziza.santridear.Tentang;
+import com.aziza.santridear.TentangAplikasii;
 import com.aziza.santridear.intro.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -40,7 +39,7 @@ public class SantriActivity extends AppCompatActivity {
         userId = auth.getCurrentUser().getUid();
 
 
-        DocumentReference dr = ft.collection("santri").document(userId);
+        DocumentReference dr = ft.collection("data_santri").document(userId);
         dr.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
@@ -63,7 +62,7 @@ public class SantriActivity extends AppCompatActivity {
 
         cardTentang.setOnClickListener(view -> {
 
-            Intent tentang = new Intent(SantriActivity.this, Tentang.class);
+            Intent tentang = new Intent(SantriActivity.this, TentangAplikasii.class);
             startActivity(tentang);
             finish();
         });

@@ -42,7 +42,7 @@ public class ProfilSantri extends AppCompatActivity {
         userId = auth.getCurrentUser().getUid();
 
 
-        DocumentReference dr = ft.collection("santri").document(userId);
+        DocumentReference dr = ft.collection("data_santri").document(userId);
         dr.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {

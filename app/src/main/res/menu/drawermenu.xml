@@ -14,6 +14,13 @@
         android:icon="@drawable/data">
 
     </item>
+
+ <item
+        android:id="@+id/absen_salat"
+        android:title="Absen Salat"
+        android:icon="@drawable/data">
+
+    </item>
  <item
         android:id="@+id/absen_sekolah"
         android:title="Absen Sekolah"
@@ -34,7 +41,7 @@
     </item>
  <item
         android:id="@+id/tentang"
-        android:title="Tentang"
+        android:title="Tentang Aplikasi"
         android:icon="@drawable/tentang_blck">
 
     </item>

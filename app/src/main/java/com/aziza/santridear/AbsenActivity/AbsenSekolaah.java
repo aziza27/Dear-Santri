@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ import com.aziza.santridear.models.Hadir;
 import com.aziza.santridear.models.Sekolah;
 import com.aziza.santridear.pengasuh.DatasantriActivity;
 import com.aziza.santridear.pengasuh.InputDataSantri;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -42,13 +45,13 @@ public class AbsenSekolaah extends AppCompatActivity {
     private RecyclerView sekolaah_recyclerview;
     FirebaseFirestore db;
     ArrayList<Sekolah> sekolahList;
-    ArrayList<Hadir> hadirs;
     int hari,bulan,tahun;
     TextView date;
     private SekolahRecyclerViewAdapter sekolahRecyclerViewAdapter;
     private Button btn_absen;
     private FirebaseFirestore ft = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+    Spinner spinner;
 
 
     @Override
@@ -65,6 +68,7 @@ public class AbsenSekolaah extends AppCompatActivity {
         hari = calendar.get(Calendar.DAY_OF_MONTH);
         bulan = calendar.get(Calendar.MONTH);
         tahun = calendar.get(Calendar.YEAR);
+        spinner = findViewById(R.id.spinner_sekolah);
 
         String tanggal= hari + "/" + bulan + "/" + tahun;
 
@@ -73,6 +77,8 @@ public class AbsenSekolaah extends AppCompatActivity {
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
+
+        String matkul = spinner.getSelectedItem().toString();
 
 
         db.collection("data_santri")
@@ -121,29 +127,26 @@ public class AbsenSekolaah extends AppCompatActivity {
                 Map<String, Object> notif = new HashMap<>();
                 Map<String, Object> objectExample = new HashMap<>();
                 objectExample.put("title", "Kehadiran");
-                objectExample.put("msg", "Ananda " + nama +" "+ present + " pada " + formattedDate);
+                objectExample.put("msg", "Ananda " + nama +" "+ present + "di mata pelajaran " + matkul +" pada " + formattedDate);
                 objectExample.put("hadir", sekolahList.get(i).getPresent());
 
                 notif.put(formattedDate, objectExample);
 
 
+                final OnSuccessListener<Void> data_added = aVoid -> {
+                    Toast.makeText(AbsenSekolaah.this, "Data Added", Toast.LENGTH_SHORT).show();
 
-
+                };
+                final OnFailureListener data_not_added_ = e -> Toast.makeText(AbsenSekolaah.this, "Data not Added ", Toast.LENGTH_SHORT).show();
                 ft.collection("notif").document(sekolahList.get(i).getKelas())
                         .set(notif, SetOptions.merge())
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(AbsenSekolaah.this, "Data Added", Toast.LENGTH_SHORT).show();
+                        .addOnSuccessListener(data_added)
+                        .addOnFailureListener(data_not_added_);
 
-                        })
-                        .addOnFailureListener(e -> Toast.makeText(AbsenSekolaah.this, "Data not Added ", Toast.LENGTH_SHORT).show());
-
-                ft.collection("santri").document("Kehadiran").collection(formattedDate).document(sekolahList.get(i).getKelas())
+                ft.collection("absen").document("Kehadiran").collection(formattedDate).document(sekolahList.get(i).getKelas())
                         .set(hashMap)
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(AbsenSekolaah.this, "Data Added", Toast.LENGTH_SHORT).show();
-
-                        })
-                        .addOnFailureListener(e -> Toast.makeText(AbsenSekolaah.this, "Data not Added ", Toast.LENGTH_SHORT).show());
+                        .addOnSuccessListener(data_added)
+                        .addOnFailureListener(data_not_added_);
 
             }
         });

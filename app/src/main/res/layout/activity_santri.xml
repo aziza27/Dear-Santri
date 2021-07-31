@@ -228,7 +228,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tentang Pondok"
+                    android:text="Tentang Aplikasi"
                     android:textSize="18dp"
                     android:textColor="#5e5e5e"
                     android:textStyle="bold"/>

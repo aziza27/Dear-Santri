@@ -122,7 +122,7 @@ public class RegistrasiActivity extends AppCompatActivity {
                                                     datauser.put("password", getPassword);
 
 
-                                                    ft.collection("Santri").document(getPengasuh_lengkap).set(datauser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    ft.collection("Pengasuh").document(getPengasuh_lengkap).set(datauser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
 

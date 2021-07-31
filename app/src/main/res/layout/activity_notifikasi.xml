@@ -7,7 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".santri.NotifikasiActivity">
 
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:text="NOTIFIKASI AKAN MUNCUL SETIAP JAM 09.00"
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/note"
         tools:listitem="@layout/item_notif"
         android:id="@+id/notif_recycler"
         android:layout_width="match_parent"
