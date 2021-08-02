@@ -26,7 +26,6 @@
         </activity>
         <activity android:name=".santri.NotifikasiActivity" />
         <activity android:name=".santri.ProfilSantri" />
-        <activity android:name=".Tentang" />
         <activity android:name=".AbsenActivity.AbsenSalat" />
         <activity
             android:name=".pengasuh.InputDataSantri"

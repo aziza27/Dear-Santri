@@ -14,9 +14,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.aziza.santridear.AbsenActivity.AbsenKebersihaan;
+import com.aziza.santridear.AbsenActivity.AbsenSalat;
 import com.aziza.santridear.AbsenActivity.AbsenSekolaah;
 import com.aziza.santridear.R;
-import com.aziza.santridear.Tentang;
+import com.aziza.santridear.TentangAplikasii;
 import com.aziza.santridear.intro.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,6 +52,10 @@ public class AdmiinActivity extends AppCompatActivity {
                     Toast.makeText(AdmiinActivity.this, "Profil", Toast.LENGTH_SHORT).show();
                     openActivity(ProfillActivity.class);
                     return  true;
+                    case R.id.salat:
+                    Toast.makeText(AdmiinActivity.this, "Absen Salat", Toast.LENGTH_SHORT).show();
+                    openActivity(AbsenSalat.class);
+                    return  true;
                     case R.id.absen_sekolah:
                     Toast.makeText(AdmiinActivity.this, "Absen Sekolah", Toast.LENGTH_SHORT).show();
                     openActivity(AbsenSekolaah.class);
@@ -68,7 +73,7 @@ public class AdmiinActivity extends AppCompatActivity {
                     return  true;
                     case R.id.tentang:
                     Toast.makeText(AdmiinActivity.this, "Tentang", Toast.LENGTH_SHORT).show();
-                    openActivity(Tentang.class);
+                    openActivity(TentangAplikasii.class);
                     return  true;
                     case R.id.logout:
                         FirebaseAuth.getInstance().signOut();

@@ -34,7 +34,7 @@ public class DatasantriActivity extends AppCompatActivity {
         recyclerView= findViewById(R.id.recyclerview);
         santriArrayList= new ArrayList<>();
 
-        db.collection("santri")
+        db.collection("Pengasuh")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

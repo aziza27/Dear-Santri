@@ -100,7 +100,7 @@ public class AbsenSekolaah extends AppCompatActivity {
 
 
         btn_absen.setOnClickListener(view -> {
-            date.setText(formattedDate);
+            date.setText(matkul + formattedDate);
             for (int i = 0; i < sekolahList.size(); i++) {
                 Toast.makeText(this, sekolahList.get(i).getSantri() + " " + sekolahList.get(i).getPresent(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, tanggal, Toast.LENGTH_SHORT).show();
@@ -128,7 +128,7 @@ public class AbsenSekolaah extends AppCompatActivity {
                 objectExample.put("msg", "Ananda " + nama +" "+ present + "di mata pelajaran " + matkul +" pada " + formattedDate);
                 objectExample.put("hadir", sekolahList.get(i).getPresent());
 
-                notif.put(formattedDate, objectExample);
+                notif.put(matkul +formattedDate, objectExample);
 
 
                 final OnSuccessListener<Void> data_added = aVoid -> {
@@ -141,7 +141,7 @@ public class AbsenSekolaah extends AppCompatActivity {
                         .addOnSuccessListener(data_added)
                         .addOnFailureListener(data_not_added_);
 
-                ft.collection("absen").document("Kehadiran").collection(matkul+ formattedDate).document(sekolahList.get(i).getKelas())
+                ft.collection("absen").document("Kehadiran").collection(matkul + formattedDate).document(sekolahList.get(i).getKelas())
                         .set(hashMap)
                         .addOnSuccessListener(data_added)
                         .addOnFailureListener(data_not_added_);

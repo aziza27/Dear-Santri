@@ -15,6 +15,12 @@
 
     </item>
  <item
+        android:id="@+id/salat"
+        android:title="Absen Salat"
+        android:icon="@drawable/data">
+
+    </item>
+ <item
         android:id="@+id/absen_sekolah"
         android:title="Absen Sekolah"
         android:icon="@drawable/data">

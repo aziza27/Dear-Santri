@@ -97,6 +97,8 @@ public class RegistrasiActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Toast.makeText(RegistrasiActivity.this, "Berhasil membuat akun pengasuh:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                             probar1.setVisibility(View.GONE);
+                            FirebaseAuth fa = FirebaseAuth.getInstance();
+                            String uid = fa.getCurrentUser().getUid();
                             // If sign in fails, display a message to the user. If sign in succeeds
                             // the auth state listener will be notified and logic to handle the
                             // signed in user can be handled in the listener.
@@ -120,9 +122,12 @@ public class RegistrasiActivity extends AppCompatActivity {
                                                     datauser.put("pengasuh_lengkap", getPengasuh_lengkap);
                                                     datauser.put("username", getUsername);
                                                     datauser.put("password", getPassword);
+                                                    datauser.put("uid", uid);
 
 
-                                                    ft.collection("Santri").document(getPengasuh_lengkap).set(datauser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    ft.collection("Pengasuh").document(uid)
+                                                            .set(datauser)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
 

@@ -49,13 +49,13 @@ public class ProfillActivity extends AppCompatActivity{
         userId = auth.getCurrentUser().getUid();
 
 
-        DocumentReference dr = ft.collection("Santri").document(userId);
+        DocumentReference dr = ft.collection("data_santri").document(userId);
         dr.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                nama.setText(documentSnapshot.getString("santri"));
-                nama_profil.setText(documentSnapshot.getString("santri"));
-                nama_lengkap.setText(documentSnapshot.getString("santri_lengkap"));
+                nama.setText(documentSnapshot.getString("pengasuh"));
+                nama_profil.setText(documentSnapshot.getString("pengasuh"));
+                nama_lengkap.setText(documentSnapshot.getString("pengasuh_lengkap"));
             }
         });
 
