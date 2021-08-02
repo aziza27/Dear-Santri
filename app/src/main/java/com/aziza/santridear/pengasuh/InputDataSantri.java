@@ -115,7 +115,7 @@ public class InputDataSantri extends AppCompatActivity {
                                 hashMap.put("status", getStatus);
                                 hashMap.put("uid", uid);
 
-                                ft.collection("Pengasuh").document(uid)
+                                ft.collection("data_santri").document(uid)
                                         .set(hashMap)
                                         .addOnSuccessListener(aVoid -> {
                                             Toast.makeText(InputDataSantri.this, "Data Added", Toast.LENGTH_SHORT).show();
@@ -127,6 +127,26 @@ public class InputDataSantri extends AppCompatActivity {
                                         .addOnFailureListener(e -> Toast.makeText(InputDataSantri.this, "Data not Added ", Toast.LENGTH_SHORT).show());
 
                             }
+
+                            ft = FirebaseFirestore.getInstance();
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("username", getUsername);
+                            user.put("status", getStatus);
+                            user.put("uid", uid);
+
+                            FirebaseFirestore fts = FirebaseFirestore.getInstance();
+
+                            fts.collection("user").document(uid)
+                                    .set(user)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(InputDataSantri.this, "Data Added", Toast.LENGTH_SHORT).show();
+                                        Intent dataSantri = new Intent(InputDataSantri.this,DatasantriActivity.class);
+                                        startActivity(dataSantri);
+                                        finish();
+
+                                    })
+                                    .addOnFailureListener(e -> Toast.makeText(InputDataSantri.this, "Data not Added ", Toast.LENGTH_SHORT).show());
+
                         });
 
 

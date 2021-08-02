@@ -24,7 +24,8 @@ public class LoginOpsi extends AppCompatActivity {
 
         String status = getIntent().getStringExtra("status");
 
-        if (status.equals("Santri")) {
+        if (status.equals("santri")) {
+
                 pengasuhOpsi.setVisibility(View.GONE);
                 santriOpsi.setVisibility(View.VISIBLE);
         } else {

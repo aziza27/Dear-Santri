@@ -12,6 +12,8 @@ import com.aziza.santridear.AbsenActivity.AbsenSekolaah;
 import com.aziza.santridear.R;
 import com.aziza.santridear.adapter.SekolahRecyclerViewAdapter;
 import com.aziza.santridear.models.Sekolah;
+import com.aziza.santridear.pengasuh.AdmiinActivity;
+import com.aziza.santridear.santri.SantriActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,15 +39,19 @@ public class SplashActivity extends AppCompatActivity {
         probar2=findViewById(R.id.probar2);
         startProgress();
 
-        DocumentReference docref = ft.collection("Pengasuh").document(mAuth.getUid());
+        DocumentReference docref = ft.collection("user").document(mAuth.getUid());
         docref.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document != null) {
                     status = document.getString("status");
-                    Intent apasih = new Intent(SplashActivity.this, LoginOpsi.class);
-                    apasih.putExtra("status", status);
-                    startActivity(apasih);
+                    assert status != null;
+                    if (status.equalsIgnoreCase("santri")) {
+                        startActivity(new Intent(this, SantriActivity.class));
+                    } else {
+                        startActivity(new Intent(this, AdmiinActivity.class));
+
+                    }
                 }
             }
         });

@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aziza.santridear.AbsenActivity.AbsenKebersihaan;
@@ -18,9 +21,19 @@ import com.aziza.santridear.AbsenActivity.AbsenSalat;
 import com.aziza.santridear.AbsenActivity.AbsenSekolaah;
 import com.aziza.santridear.R;
 import com.aziza.santridear.TentangAplikasii;
+import com.aziza.santridear.adapter.SekolahRecyclerViewAdapter;
 import com.aziza.santridear.intro.LoginActivity;
+import com.aziza.santridear.models.Sekolah;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.Objects;
+
+import static com.aziza.santridear.pengasuh.InputDataSantri.TAG;
 
 public class AdmiinActivity extends AppCompatActivity {
 
@@ -28,7 +41,9 @@ public class AdmiinActivity extends AppCompatActivity {
    Toolbar toolbar;
    private NavigationView nv;
    private Context context = this;
+   FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+   TextView nama, namaprofil, namalengkap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +52,29 @@ public class AdmiinActivity extends AppCompatActivity {
         dl_admin =findViewById(R.id.dl_admin);
         toolbar=findViewById(R.id.toolbar);
         nv=findViewById(R.id.nv_admin);
+        nama = findViewById(R.id.nama);
+        namaprofil = findViewById(R.id.nama_profil);
+        namalengkap = findViewById(R.id.nama_lengkap);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.homei);
 
+        FirebaseAuth fa = FirebaseAuth.getInstance();
+
+        DocumentReference docref = db.collection("Pengasuh").document(Objects.requireNonNull(fa.getUid()));
+        docref.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+
+                nama.setText(document.getString("pengasuh"));
+                namaprofil.setText(document.getString("pengasuh"));
+                namalengkap.setText(document.getString("pengasuh_lengkap"));
+
+
+            }
+        });
 
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

@@ -71,7 +71,7 @@ public class NotifReceiver extends BroadcastReceiver {
                     }
 
                     String title = "Kehadiran";
-                    String message = "Ananda " + name + " " + present + " pada " + formattedDate;
+                    String message = "Absensi kehadiran santri" + " pada tanggal " + formattedDate + " sudah direkap";
                     int notifId = 100;
 
                     showAlarmNotification(context, title, message, notifId);
@@ -141,7 +141,7 @@ public class NotifReceiver extends BroadcastReceiver {
 
         Calendar calendar = Calendar.getInstance();
 
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 

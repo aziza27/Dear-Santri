@@ -14,16 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".CobaActivity"
-            android:label="@string/title_activity_coba"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".Coba"
-            android:label="@string/title_activity_coba"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+
         <activity android:name=".santri.NotifikasiActivity" />
         <activity android:name=".santri.ProfilSantri" />
         <activity android:name=".AbsenActivity.AbsenSalat" />
@@ -42,6 +33,7 @@
             android:name=".pengasuh.ProfillActivity"
             android:theme="@style/splash" />
         <activity android:name=".pengasuh.DatasantriActivity" />
+
         <activity
             android:name=".pengasuh.AdmiinActivity"
             android:theme="@style/DrawerTheme" />
@@ -49,6 +41,7 @@
             android:name=".intro.RegistrasiActivity"
             android:theme="@style/splash" />
         <activity android:name=".santri.SantriActivity" />
+        <activity android:name=".TentangAplikasii" />
         <activity
             android:name=".intro.LoginActivity"
             android:theme="@style/splash" >

@@ -140,6 +140,29 @@ public class RegistrasiActivity extends AppCompatActivity {
                                                                     Toast.makeText(RegistrasiActivity.this, "Anda Gagal", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
+
+                                                            ft = FirebaseFirestore.getInstance();
+                                                            Map<String, Object> user = new HashMap<>();
+                                                            user.put("username", getUsername);
+                                                            user.put("status", "pengasuh");
+                                                            datauser.put("uid", uid);
+
+                                                            FirebaseFirestore fts = FirebaseFirestore.getInstance();
+                                                             fts.collection("user").document(uid)
+                                                                    .set(datauser)
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+
+                                                                            Toast.makeText(RegistrasiActivity.this, "Anda Berhasil", Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    })
+                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
+                                                                            Toast.makeText(RegistrasiActivity.this, "Anda Gagal", Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    });
                                                     FirebaseAuth.getInstance().signOut();
                                                     Intent i = new Intent(RegistrasiActivity.this, LoginActivity.class);
                                                     i.putExtra("back", 1);

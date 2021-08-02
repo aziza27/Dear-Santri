@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class AbsenSekolaah extends AppCompatActivity {
     private FirebaseFirestore ft = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     Spinner spinner;
+    String matkul;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,23 @@ public class AbsenSekolaah extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String matkul = spinner.getSelectedItem().toString();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View v,
+                                       int position, long id) {
+                // On selecting a spinner item
+                matkul = adapter.getItemAtPosition(position).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
 
 
         db.collection("data_santri")
@@ -151,4 +169,5 @@ public class AbsenSekolaah extends AppCompatActivity {
 
 
     }
+
 }
