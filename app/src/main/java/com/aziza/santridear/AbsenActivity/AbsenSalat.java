@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -44,6 +46,7 @@ public class AbsenSalat extends AppCompatActivity {
     private FirebaseFirestore ft = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     Spinner spinner_salat;
+    String salat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +73,26 @@ public class AbsenSalat extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String salat = spinner_salat.getSelectedItem().toString();
+        spinner_salat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View v,
+                                       int position, long id) {
+                // On selecting a spinner item
+                salat = adapter.getItemAtPosition(position).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
 
 
-        db.collection("santri")
+
+        db.collection("data_santri")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
@@ -95,8 +114,8 @@ public class AbsenSalat extends AppCompatActivity {
         btn_salat.setOnClickListener(view -> {
             date.setText(formattedDate);
             for (int i = 0; i < salatList.size(); i++) {
-                Toast.makeText(this, salatList.get(i).getSantri() + " " + salatList.get(i).getPresent(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, tanggal, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, salatList.get(i).getSantri() + " " + salatList.get(i).getPresent(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, tanggal, Toast.LENGTH_SHORT).show();
 
 
                 ft = FirebaseFirestore.getInstance();
@@ -118,14 +137,14 @@ public class AbsenSalat extends AppCompatActivity {
                 Map<String, Object> notif = new HashMap<>();
                 Map<String, Object> objectExample = new HashMap<>();
                 objectExample.put("title", "Kehadiran");
-                objectExample.put("msg", "Ananda " + nama +" "+ present + "di mata pelajaran " + salat +" pada " + formattedDate);
+                objectExample.put("msg", "Ananda " + nama +" "+ present + "\n di Ibadah Salat " + salat +"\n pada " + formattedDate);
                 objectExample.put("hadir", salatList.get(i).getPresent());
 
-                notif.put(formattedDate, objectExample);
+                notif.put(salat + formattedDate, objectExample);
 
 
                 final OnSuccessListener<Void> data_added = aVoid -> {
-                    Toast.makeText(AbsenSalat.this, "Data Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AbsenSalat.this, "Berhasil Absen", Toast.LENGTH_SHORT).show();
 
                 };
                 final OnFailureListener data_not_added_ = e -> Toast.makeText(AbsenSalat.this, "Data not Added ", Toast.LENGTH_SHORT).show();

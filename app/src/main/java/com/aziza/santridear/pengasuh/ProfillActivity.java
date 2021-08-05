@@ -49,7 +49,7 @@ public class ProfillActivity extends AppCompatActivity{
         userId = auth.getCurrentUser().getUid();
 
 
-        DocumentReference dr = ft.collection("data_santri").document(userId);
+        DocumentReference dr = ft.collection("Pengasuh").document(userId);
         dr.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
@@ -62,7 +62,7 @@ public class ProfillActivity extends AppCompatActivity{
         beranda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent s = new Intent(ProfillActivity.this, SantriActivity.class);
+                Intent s = new Intent(ProfillActivity.this, AdmiinActivity.class);
                 startActivity(s);
                 finish();
             }

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -14,8 +16,10 @@ import android.widget.Toast;
 
 import com.aziza.santridear.R;
 import com.aziza.santridear.adapter.KebersihanRecyclerViewAdapter;
+import com.aziza.santridear.adapter.SekolahRecyclerViewAdapter;
 import com.aziza.santridear.models.Kerbersihan;
 import com.aziza.santridear.models.Sekolah;
+import com.aziza.santridear.pengasuh.InputDataSantri;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,6 +53,7 @@ public class AbsenKebersihaan extends AppCompatActivity {
     private FirebaseFirestore ft = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     Spinner spinner_bersih;
+    String bersih;
 
 
 
@@ -77,33 +82,51 @@ public class AbsenKebersihaan extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        String bersih = spinner_bersih.getSelectedItem().toString();
+        spinner_bersih.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View v,
+                                       int position, long id) {
+                // On selecting a spinner item
+                bersih = adapter.getItemAtPosition(position).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
 
 
 
         db.collection("data_santri")
                 .get()
                 .addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                    kebersihanList.add(new Kerbersihan(documentSnapshot.getData().get("santri") + "", documentSnapshot.getData().get("uid") + "",  false));
-                    kebersihanRecyclerViewAdapter = new KebersihanRecyclerViewAdapter(getBaseContext(),kebersihanList);
-                    kebersihaan_recyclerview.setHasFixedSize(false);
-                    kebersihaan_recyclerview.setLayoutManager(new LinearLayoutManager(AbsenKebersihaan.this));
-                    kebersihaan_recyclerview.setAdapter(kebersihanRecyclerViewAdapter);
-                    kebersihanRecyclerViewAdapter.notifyDataSetChanged();
-                    Log.d(TAG,documentSnapshot.getId()+ "=>" +documentSnapshot.getData());
-                }
-            }else{
-                Log.d(TAG,"Dokumen error : ",task.getException());
-            }
-        });
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            kebersihanList.add(new Kerbersihan(document.getData().get("santri") + "", document.getData().get("uid") + "",  false));
+                            kebersihanRecyclerViewAdapter = new KebersihanRecyclerViewAdapter(getBaseContext(), kebersihanList);
+                            kebersihaan_recyclerview.setHasFixedSize(false);
+                            kebersihaan_recyclerview.setLayoutManager(new LinearLayoutManager(AbsenKebersihaan.this));
+                            kebersihaan_recyclerview.setAdapter(kebersihanRecyclerViewAdapter);
+                            kebersihanRecyclerViewAdapter.notifyDataSetChanged();
+                            Log.d(TAG, document.getId() + " => " + document.getData());
+                        }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
+
+
 
         btn_bersih.setOnClickListener(view -> {
-            date.setText(formattedDate);
+            date.setText(bersih + formattedDate);
             for (int i = 0; i < kebersihanList.size(); i++) {
-                Toast.makeText(this, kebersihanList.get(i).getSantri() + " " + kebersihanList.get(i).getPresent(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, tanggal, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, sekolahList.get(i).getSantri() + " " + sekolahList.get(i).getPresent(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, tanggal, Toast.LENGTH_SHORT).show();
 
 
                 ft = FirebaseFirestore.getInstance();
@@ -125,14 +148,14 @@ public class AbsenKebersihaan extends AppCompatActivity {
                 Map<String, Object> notif = new HashMap<>();
                 Map<String, Object> objectExample = new HashMap<>();
                 objectExample.put("title", "Kehadiran");
-                objectExample.put("msg", "Ananda " + nama +" "+ present + "di mata pelajaran " + bersih +" pada " + formattedDate);
+                objectExample.put("msg", "Ananda " + nama +" "+ present + "\n di Tugas Kebersihan " + bersih +"\n pada " + formattedDate);
                 objectExample.put("hadir", kebersihanList.get(i).getPresent());
 
-                notif.put(formattedDate, objectExample);
+                notif.put(bersih +formattedDate, objectExample);
 
 
                 final OnSuccessListener<Void> data_added = aVoid -> {
-                    Toast.makeText(AbsenKebersihaan.this, "Data Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AbsenKebersihaan.this, "Berhasil Absen", Toast.LENGTH_SHORT).show();
 
                 };
                 final OnFailureListener data_not_added_ = e -> Toast.makeText(AbsenKebersihaan.this, "Data not Added ", Toast.LENGTH_SHORT).show();
@@ -141,7 +164,7 @@ public class AbsenKebersihaan extends AppCompatActivity {
                         .addOnSuccessListener(data_added)
                         .addOnFailureListener(data_not_added_);
 
-                ft.collection("absen").document("Kehadiran").collection(bersih+ formattedDate).document(kebersihanList.get(i).getKelas())
+                ft.collection("absen").document("Kehadiran").collection(bersih + formattedDate).document(kebersihanList.get(i).getKelas())
                         .set(hashMap)
                         .addOnSuccessListener(data_added)
                         .addOnFailureListener(data_not_added_);

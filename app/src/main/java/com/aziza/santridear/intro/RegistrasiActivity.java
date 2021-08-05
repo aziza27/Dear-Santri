@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class RegistrasiActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    TextInputEditText pengasuh,pengasuh_lengkap, username, password;
+    TextInputEditText pengasuh,pengasuh_lengkap, username, password,status;
     Button daftar;
     ProgressBar probar1;
     private FirebaseDatabase database;
@@ -51,6 +51,7 @@ public class RegistrasiActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         daftar = findViewById(R.id.daftar);
+        status = findViewById(R.id.status);
         probar1 = findViewById(R.id.probar1);
 
         ft = FirebaseFirestore.getInstance();
@@ -64,6 +65,7 @@ public class RegistrasiActivity extends AppCompatActivity {
             final String getPengasuh_lengkap = pengasuh_lengkap.getText().toString();
             final String getUsername = username.getText().toString().trim();
             final String getPassword = password.getText().toString().trim();
+            final String getStatus = status.getText().toString().trim();
 
             if (TextUtils.isEmpty(getPengasuh)){
                 Toast.makeText(getApplicationContext(),"Masukkan Nama Panggil Pengasuh !", Toast.LENGTH_SHORT).show();
@@ -80,6 +82,11 @@ public class RegistrasiActivity extends AppCompatActivity {
             }
             if (TextUtils.isEmpty(getPassword)) {
                 Toast.makeText(getApplicationContext(), "Masukkan Kata Sandi !", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (TextUtils.isEmpty(getStatus)) {
+                Toast.makeText(getApplicationContext(), "Masukkan Status !", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (getPassword.length() < 6) {
@@ -123,6 +130,7 @@ public class RegistrasiActivity extends AppCompatActivity {
                                                     datauser.put("username", getUsername);
                                                     datauser.put("password", getPassword);
                                                     datauser.put("uid", uid);
+                                                    datauser.put("status", getStatus);
 
 
                                                     ft.collection("Pengasuh").document(uid)
@@ -144,12 +152,12 @@ public class RegistrasiActivity extends AppCompatActivity {
                                                             ft = FirebaseFirestore.getInstance();
                                                             Map<String, Object> user = new HashMap<>();
                                                             user.put("username", getUsername);
-                                                            user.put("status", "pengasuh");
-                                                            datauser.put("uid", uid);
+                                                            user.put("status",getStatus);
+                                                            user.put("uid", uid);
 
                                                             FirebaseFirestore fts = FirebaseFirestore.getInstance();
                                                              fts.collection("user").document(uid)
-                                                                    .set(datauser)
+                                                                    .set(user)
                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void aVoid) {

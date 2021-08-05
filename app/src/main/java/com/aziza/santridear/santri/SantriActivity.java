@@ -18,6 +18,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.Objects;
+
 public class SantriActivity extends AppCompatActivity {
     CardView cardLogout,cardProfil,cardNotif,cardTentang;
     TextView namaSantri,kelasSantri;
@@ -34,12 +36,13 @@ public class SantriActivity extends AppCompatActivity {
         userId = auth.getCurrentUser().getUid();
 
 
-        DocumentReference dr = ft.collection("data_user").document(userId);
-        dr.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                namaSantri.setText(documentSnapshot.getString("santri_lengkap"));
-                kelasSantri.setText(documentSnapshot.getString("kelas"));
+        DocumentReference dr = ft.collection("data_santri").document(Objects.requireNonNull(userId));
+        dr.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+
+                namaSantri.setText(document.getString("santri_lengkap"));
+                kelasSantri.setText(document.getString("kelas"));
             }
         });
 

@@ -17,12 +17,16 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:textColorHint="#fff"
             android:id="@+id/user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp">
 
             <EditText
+                android:textSize="20sp"
+                android:drawablePadding="6dp"
+                android:drawableTint="#fff"
                 android:drawableLeft="@drawable/person"
                 android:id="@+id/username"
                 android:layout_width="match_parent"
@@ -32,12 +36,17 @@
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
+            android:textColorHint="#fff"
             android:id="@+id/pass"
+            app:passwordToggleEnabled="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp">
 
             <EditText
+                android:textSize="20sp"
+                android:drawablePadding="6dp"
+                android:drawableTint="#fff"
                 android:drawableLeft="@drawable/password"
                 android:id="@+id/password"
                 android:layout_width="match_parent"
@@ -58,6 +67,7 @@
     </LinearLayout>
 
     <Button
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="#015965"
         android:id="@+id/login"
@@ -69,20 +79,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     <TextView
-        android:text="Belum Punya Akun?"
+        android:textSize="15sp"
+        android:text="Pengasuh Belum Punya Akun?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/daftar"
+        android:id="@+id/daftar"
+         android:textSize="15sp"
         android:layout_marginLeft="5dp"
         android:textColor="#E60D0D"
         android:text="Daftar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-
-
     </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:textColor="#fff"
+        android:textAlignment="center"
+        android:text="Catatan : Untuk Wali Santri Harap menghubungi Pengasuh untuk menerima Username dan Password akses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <ProgressBar
         android:id="@+id/probar"

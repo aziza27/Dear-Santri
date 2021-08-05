@@ -120,8 +120,8 @@ public class AbsenSekolaah extends AppCompatActivity {
         btn_absen.setOnClickListener(view -> {
             date.setText(matkul + formattedDate);
             for (int i = 0; i < sekolahList.size(); i++) {
-                Toast.makeText(this, sekolahList.get(i).getSantri() + " " + sekolahList.get(i).getPresent(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, tanggal, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, sekolahList.get(i).getSantri() + " " + sekolahList.get(i).getPresent(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, tanggal, Toast.LENGTH_SHORT).show();
 
 
                 ft = FirebaseFirestore.getInstance();
@@ -143,14 +143,14 @@ public class AbsenSekolaah extends AppCompatActivity {
                 Map<String, Object> notif = new HashMap<>();
                 Map<String, Object> objectExample = new HashMap<>();
                 objectExample.put("title", "Kehadiran");
-                objectExample.put("msg", "Ananda " + nama +" "+ present + "di mata pelajaran " + matkul +" pada " + formattedDate);
+                objectExample.put("msg", "Ananda " + nama +" "+ present + "\n di mata pelajaran " + matkul +"\n pada " + formattedDate);
                 objectExample.put("hadir", sekolahList.get(i).getPresent());
 
                 notif.put(matkul +formattedDate, objectExample);
 
 
                 final OnSuccessListener<Void> data_added = aVoid -> {
-                    Toast.makeText(AbsenSekolaah.this, "Data Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AbsenSekolaah.this, "Berhasil Absen", Toast.LENGTH_SHORT).show();
 
                 };
                 final OnFailureListener data_not_added_ = e -> Toast.makeText(AbsenSekolaah.this, "Data not Added ", Toast.LENGTH_SHORT).show();

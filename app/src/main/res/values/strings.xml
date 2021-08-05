@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SantriDear</string>
+    <string name="app_name">Dear Santri</string>
     <string name="title_activity_admin">AdminActivity</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
