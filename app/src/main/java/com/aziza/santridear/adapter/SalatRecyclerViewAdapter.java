@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,9 +21,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SalatRecyclerViewAdapter extends RecyclerView.Adapter<SalatRecyclerViewAdapter.ViewHolder> {
+    String absen;
     private Context context;
     private ArrayList<Salat> salatList;
-
     private HashMap<Integer, Boolean> isChecked = new HashMap<>();
 
     public SalatRecyclerViewAdapter(Context context, ArrayList<Salat> salatList) {
@@ -32,34 +34,33 @@ public class SalatRecyclerViewAdapter extends RecyclerView.Adapter<SalatRecycler
     @NonNull
     @Override
     public SalatRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_salat,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_salat, parent, false);
         return new SalatRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SalatRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.nama_salat.setText(salatList.get(position).getSantri());
-        holder.cekSalat.setChecked(false);
-        salatList.get(position).setPresent(false);
+        salatList.get(position).setPresent("alpa");
 
-        if (isChecked.containsKey(position)){
-            holder.cekSalat.setChecked(isChecked.get(position));
-        } else {
-            holder.cekSalat.setChecked(false);
-        }
 
-        holder.cekSalat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.salat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    salatList.get(position).setPresent(true);
-                    Toast.makeText(context, salatList.get(position).getSantri()+ " checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    salatList.get(position).setPresent(false);
-                    Toast.makeText(context, salatList.get(position).getSantri()+ " unchecked", Toast.LENGTH_SHORT).show();
-                }
+            public void onItemSelected(AdapterView<?> parent, View view, int
+                    pos, long id) {
+                // On selecting a spinner item
+
+                String item = parent.getItemAtPosition(pos).toString();
+                salatList.get(position).setPresent(item);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // todo for nothing selected
             }
         });
+
     }
 
     @Override
@@ -69,16 +70,15 @@ public class SalatRecyclerViewAdapter extends RecyclerView.Adapter<SalatRecycler
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nama_salat;
-        CheckBox cekSalat;
+        Spinner salat;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            nama_salat= itemView.findViewById(R.id.nama_salat);
-            cekSalat= itemView.findViewById(R.id.cekSalat);
+            nama_salat = itemView.findViewById(R.id.nama_salat);
+            salat = itemView.findViewById(R.id.spinner_shalat);
 
-            itemView.setOnClickListener(view -> {
-                cekSalat.setChecked(!cekSalat.isChecked());
-            });
+
 
         }
     }

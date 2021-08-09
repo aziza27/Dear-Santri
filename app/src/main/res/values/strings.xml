@@ -27,6 +27,13 @@
         <item>Muhadharah</item>
         <item>B. Arab</item>
     </array>
+    <array name="absen">
+        <item>Hadir</item>
+        <item>Masbuq</item>
+        <item>Alpa</item>
+        <item>Sakit</item>
+        <item>Libur</item>
+    </array>
     <array name="item_salat">
         <item>Qiyamul Lail</item>
         <item>Subuh</item>

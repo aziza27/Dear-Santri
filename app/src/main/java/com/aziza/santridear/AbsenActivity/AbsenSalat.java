@@ -97,7 +97,7 @@ public class AbsenSalat extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         for(QueryDocumentSnapshot doc : task.getResult()){
-                            salatList.add(new Salat(doc.getData().get("santri") + "", doc.getData().get("uid") + "",  false));
+                            salatList.add(new Salat(doc.getData().get("santri") + "", doc.getData().get("uid") + "",  ""));
                             salatRecyclerViewAdapter = new SalatRecyclerViewAdapter(getBaseContext(),salatList);
                             salat_recyclerview.setHasFixedSize(false);
                             salat_recyclerview.setLayoutManager(new LinearLayoutManager(AbsenSalat.this));
@@ -126,18 +126,13 @@ public class AbsenSalat extends AppCompatActivity {
                 hashMap.put("hadir", salatList.get(i).getPresent());
                 hashMap.put("date",tanggal);
 
-                Boolean hadir = salatList.get(i).getPresent();
+                String hadir = salatList.get(i).getPresent();
                 String present = "";
                 String nama = salatList.get(i).getSantri();
-                if (hadir){
-                    present = "Hadir";
-                } else {
-                    present = "Tidak Hadir";
-                }
                 Map<String, Object> notif = new HashMap<>();
                 Map<String, Object> objectExample = new HashMap<>();
                 objectExample.put("title", "Kehadiran");
-                objectExample.put("msg", "Ananda " + nama +" "+ present + "\n di Ibadah Salat " + salat +"\n pada " + formattedDate);
+                objectExample.put("msg", "Ananda " + nama +" "+ hadir + "\n di Ibadah Salat " + salat +"\n pada " + formattedDate);
                 objectExample.put("hadir", salatList.get(i).getPresent());
 
                 notif.put(salat + formattedDate, objectExample);

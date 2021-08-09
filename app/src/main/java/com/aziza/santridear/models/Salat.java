@@ -3,23 +3,23 @@ package com.aziza.santridear.models;
 public class Salat {
     String Santri;
     String Kelas;
-    Boolean isPresent;
+    String isPresent;
 
     public Salat() {
     }
 
-    public Salat(String santri, String kelas, Boolean isPresent) {
+    public Salat(String santri, String kelas, String isPresent) {
         Santri = santri;
         Kelas = kelas;
         isPresent = isPresent;
 
     }
 
-    public Boolean getPresent() {
+    public String getPresent() {
         return isPresent;
     }
 
-    public void setPresent(Boolean present) {
+    public void setPresent(String present) {
         isPresent = present;
     }
 
